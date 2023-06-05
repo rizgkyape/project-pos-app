@@ -7,9 +7,10 @@ app.use(cors());
 const PORT = 5678;
 
 // IMPORT ROUTERS
-const { userRouter } = require('./routers');
+const { userRouter, productRouter } = require('./routers');
 
 app.use('/auth', userRouter);
+app.use('/products', productRouter);
 
 app.listen(PORT, () => {
 	console.log(`server started on port ${PORT}`);

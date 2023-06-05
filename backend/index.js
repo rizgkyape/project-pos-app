@@ -9,7 +9,7 @@ const PORT = 5678;
 // IMPORT ROUTERS
 const { userRouter } = require('./routers');
 
-app.use('/users', userRouter);
+app.use('/auth', userRouter);
 
 app.listen(PORT, () => {
 	console.log(`server started on port ${PORT}`);

@@ -19,6 +19,7 @@ export const productsListSlice = createSlice({
 
 export const getProductsListAsync = () => async (dispatch) => {
   try {
+    const result = axios.get
   } catch (error) {}
 };
 

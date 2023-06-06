@@ -4,11 +4,22 @@ import { useRef } from "react";
 import { GrList } from "react-icons/gr";
 import { AiOutlineDown } from "react-icons/ai";
 import { Dropdown } from "flowbite-react"; 
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getProductsListAsync } from "../../Redux/Features/productsListSlice";
 
 export default function LandingPage() {
   const _searchProducts = useRef();
+  const dispatch = useDispatch()
+
+  const productsReducer = useSelector((state) => state.productsList.products)
 
   const categoryList = ["satu", "dua", "tiga"];
+
+  useEffect(() => {
+    dispatch(getProductsListAsync())
+  }, [])
+  console.log(productsReducer)
 
   return (
     <>

@@ -19,7 +19,8 @@ export const productsListSlice = createSlice({
 
 export const getProductsListAsync = () => async (dispatch) => {
   try {
-    const result = axios.get
+    const result = await axios.get('http://localhost:5678/products')
+    dispatch(setProducts(result.data))
   } catch (error) {}
 };
 

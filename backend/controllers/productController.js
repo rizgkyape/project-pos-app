@@ -35,4 +35,18 @@ module.exports = {
 			});
 		}
 	},
+	filterProductByCategory: async (req, res) => {
+		try {
+			const { category } = req.query;
+
+			const result = await Product.findAll({
+				include: { model: db.ProductCategory },
+				where: {
+					category: category,
+				},
+			});
+
+			console.log(result);
+		} catch (error) {}
+	},
 };

@@ -28,7 +28,7 @@ module.exports = {
           name: { [Op.like]: `%${name}%` },
         },
       });
-
+      
       console.log(result);
 
       if (result.length > 0) {

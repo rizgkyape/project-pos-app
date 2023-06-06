@@ -2,9 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import urlAPI from "../../Supports/Constant/urlAPI";
 
 const initialState = {
   products: {},
+  category: {}
 };
 
 export const productsListSlice = createSlice({
@@ -14,6 +16,9 @@ export const productsListSlice = createSlice({
     setProducts: (initialState, action) => {
       initialState.products = action.payload;
     },
+    setCategory: (initialState, action) => {
+      initialState.category = action.payload
+    }
   },
 });
 
@@ -24,5 +29,14 @@ export const getProductsListAsync = () => async (dispatch) => {
   } catch (error) {}
 };
 
-export const { setProducts } = productsListSlice.actions;
+export const getCategoryProducts = () => async (dispatch) => {
+  try {
+    const result = await axios.get(`${urlAPI}/products/getcategory`)
+    dispatch(setCategory(result.data))
+  } catch (error) {
+    
+  }
+}
+
+export const { setProducts, setCategory } = productsListSlice.actions;
 export default productsListSlice.reducer;

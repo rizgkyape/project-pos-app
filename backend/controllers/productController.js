@@ -1,10 +1,11 @@
 const db = require("./../models");
 const Product = db.Product;
+const ProductCategory = db.ProductCategory
 
 module.exports = {
   productsList: async (req, res) => {
     try {
-      const result = await Product.findAll({});
+      const result = await Product.findAll();
 
       res.status(200).send({
         success: true,
@@ -29,7 +30,7 @@ module.exports = {
         },
       });
 
-      console.log(result);
+    //   console.log(result);
 
       if (result.length > 0) {
         res.status(200).send({
@@ -44,11 +45,29 @@ module.exports = {
         });
       }
     } catch (error) {
-      res.status(400).send({
+      res.status(500).send({
         success: false,
         message: error.message,
         data: null,
       });
     }
   },
+  getCategory: async (req, res) => {
+    try {
+      const result = await ProductCategory.findAll()
+
+      res.status(200).send({
+        success: true,
+        message: "fetch success",
+        data: result,
+      });
+
+    } catch (error) {
+      res.status(500).send({
+        success: false,
+        message: error.message,
+        data: null,
+      });
+    }
+  }
 };

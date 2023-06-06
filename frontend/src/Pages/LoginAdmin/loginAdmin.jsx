@@ -1,48 +1,111 @@
 import axios from 'axios';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import urlAPI from '../../Supports/Constant/urlAPI';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 export default function LoginAdmin() {
 	const _emailOrPhone = useRef();
 	const _password = useRef();
 	const navigate = useNavigate();
 
+	const [showPassword, setShowPassword] = useState(false);
+
+	const onLogin = async () => {
+		try {
+			if (!_emailOrPhone.current.value || !_password.current.value)
+				throw { message: 'Data is not fully filled!' };
+
+			let result = await axios.post(`${urlAPI}/users/login`, {
+				emailOrPhone: _emailOrPhone.current.value,
+				password: _password.current.value,
+			});
+
+			if (result.data.success) {
+				let payload = {
+					id: result.data.data.id,
+					adminId: result.data.data.adminId,
+					name: result.data.data.name,
+					isAdmin: result.data.data.isAdmin,
+					token: result.data.data.token,
+				};
+
+				localStorage.setItem('userLogin', JSON.stringify(payload));
+
+				_emailOrPhone.current.value = '';
+				_password.current.value = '';
+
+				toast.success('Login Success!');
+			} else {
+				throw { message: 'Wrong email, phone number or password!' };
+			}
+
+			setTimeout(() => {}, 500);
+		} catch (error) {
+			if (error.response) {
+				toast.error(error.response.data.message);
+			} else {
+				toast.error(error.message);
+			}
+		}
+	};
+
 	return (
 		<>
-			<div className='login-container flex justify-center items-center h-screen bg-rose-900'>
-				<div className='login-wrapper'>
-					<div className='login-text'>
-						<h1 className='font-bold text-[30px]'>LOGIN AS ADMIN</h1>
-					</div>
-					<div className='input-user mt-2 w-full'>
-						<div className='input-username-password w-full'>
-							<input
-								type='text'
-								ref={_emailOrPhone}
-								id='username-email'
-								placeholder='Email or Phone Number'
-								className='border-2 border-black focus:outline-none px-2 pl-2 w-[300px]'
-							/>
+			<Toaster />
+			<div className='login-container flex justify-center items-center h-screen bg-stone-200'>
+				<div className='w-[450px] bg-[#04428e] flex justify-center items-center py-[200px] rounded-lg'>
+					<div className='login-wrapper'>
+						<div className='login-text'>
+							<h1 className='font-bold text-[30px] text-white'>LOGIN AS ADMIN</h1>
 						</div>
-						<div className='input-password mt-2'>
-							<input
-								type='password'
-								ref={_password}
-								id='password'
-								placeholder='Password'
-								className='border-2 border-black focus:outline-none px-2 pl-2 w-[300px]'
-							/>
-						</div>
-						<div className='flex items-center justify-between'>
-							<div className='sign-up button mt-3 bg-stone-400 w-[80px] h-[30px] flex justify-center items-center'>
-								<button type='button'>
-									<div className='font-bold'>LOGIN</div>
-								</button>
+						<div className='input-user mt-2 w-full'>
+							<div className='input-username-password w-full'>
+								<input
+									type='text'
+									ref={_emailOrPhone}
+									id='username-email'
+									placeholder='Email or Phone Number'
+									className='border-2 border-black focus:outline-none px-2 pl-2 w-[300px]'
+								/>
 							</div>
-							<div className='text-[12px] mt-3 undeline'>
-								<Link to='/login/cashier'>Login as Cashier</Link>
+							<div className='input-password mt-2 flex items-center'>
+								<input
+									type={showPassword ? 'text' : 'password'}
+									ref={_password}
+									id='password'
+									placeholder='Password'
+									className='border-2 border-black focus:outline-none px-2 pl-2 w-[300px]'
+								/>
+								{showPassword === false ? (
+									<button
+										type='button'
+										onClick={() => setShowPassword(!showPassword)}
+										className='ml-[-25px] bg-white p-[3px] h-[24px] flex items-center'
+									>
+										<AiOutlineEye />
+									</button>
+								) : (
+									<button
+										type='button'
+										onClick={() => setShowPassword(!showPassword)}
+										className='ml-[-25px] bg-white p-[3px] h-[24px] flex items-center'
+									>
+										<AiOutlineEyeInvisible />
+									</button>
+								)}
+							</div>
+							<div className='flex items-center justify-between'>
+								<div className='sign-up button bg-black mt-3 bg-[#04428e] w-[80px] h-[30px] flex justify-center items-center text-white hover:text-[#E57C23] rounded-lg'>
+									<button type='button' onClick={onLogin}>
+										<div className='font-bold'>LOGIN</div>
+									</button>
+								</div>
+								<div className='text-[12px] mt-3 undeline text-white hover:text-[#E57C23]'>
+									<Link to='/login/cashier'>Login as Cashier</Link>
+								</div>
 							</div>
 						</div>
 					</div>

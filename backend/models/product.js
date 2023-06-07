@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
 			stock: DataTypes.INTEGER,
 			expiredDate: DataTypes.DATE,
 			imageLink: DataTypes.STRING,
+			image: DataTypes.STRING,
 		},
 		{
 			sequelize,

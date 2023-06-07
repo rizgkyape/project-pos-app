@@ -8,5 +8,14 @@ const { productController } = require('./../controllers');
 router.get('/', productController.productsList);
 // router.post('/', multerUpload.single('image'), productController.create);
 router.get('/getcategory', productController.getCategory)
+router.post('/', multerUpload.single('image'), productController.create);
+router.put(
+	'/modify/:id',
+	multerUpload.single('image'),
+	productController.modify
+);
+router.delete('/delete/:id', productController.delete);
+router.post('/categories', productController.createCategory);
+router.put('/categories/modify/:id', productController.modifyCategory);
 
 module.exports = router;

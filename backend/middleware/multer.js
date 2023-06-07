@@ -4,6 +4,7 @@ const fs = require('fs');
 
 const storage = multer.diskStorage({
 	destination: async (req, file, cb) => {
+		
 		let directoryExist = fs.existsSync(`${defaultPath}/image`);
 		if (!directoryExist) {
 			await fs.promises.mkdir(`${defaultPath}/image`, {
@@ -26,7 +27,7 @@ const storage = multer.diskStorage({
 	},
 });
 
-const fileFilter = (req, res, cb) => {
+const fileFilter = (req, file, cb) => {
 	if (
 		file.mimetype.split('/')[1] === 'jpg' ||
 		file.mimetype.split('/')[1] === 'jpeg' ||

@@ -22,10 +22,11 @@ export const productsListSlice = createSlice({
   },
 });
 
-export const getProductsListAsync = () => async (dispatch) => {
+export const getProductsListAsync = (page, category, name, sortBy, sort) => async (dispatch) => {
   try {
-    const result = await axios.get('http://localhost:5678/products')
+    const result = await axios.get(`http://localhost:5678/products?name=${name}&sortBy=${sortBy}&sort=${sort}&category=${category}&page=${page}`)
     dispatch(setProducts(result.data))
+
   } catch (error) {}
 };
 

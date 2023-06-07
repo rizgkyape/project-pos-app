@@ -22,7 +22,7 @@ export default function CardMenu() {
           <div className="flex justify-between border border-black rounded-[5px]">
             <div className="flex gap-5">
               <div className="w-[100px] h-[100px]">
-                <img key={index} src={value.imageLink} alt="gambar"></img>
+                <img key={index} src={value.imageLink} alt="gambar" width={'100%'}></img>
               </div>
               <div className="flex items-center text-[18px]">{value.name}</div>
               <div className="flex items-center text-[18px] border-x border-black p-5">

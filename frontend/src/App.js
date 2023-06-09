@@ -7,16 +7,30 @@ import LoginCashier from './Pages/LoginCashier/LoginCashier';
 import LandingPage from './Pages/LandingPage/LandingPage';
 import LandingPageCashier from './Pages/LpCashier/LpCashier';
 
-
 function App() {
 	return (
 		<>
-			<Navbar />
 			<Routes>
-				<Route path='/login' element={<LoginAdmin />}></Route>
+				<Route path='/' element={<LoginAdmin />}></Route>
 				<Route path='/login/cashier' element={<LoginCashier />}></Route>
-				<Route path='/landingpage' element={<LandingPage />}></Route>
-				<Route path='/landingpagecashier' element={<LandingPageCashier />}></Route>
+				<Route
+					path='/landingpage'
+					element={
+						<>
+							<Navbar />
+							<LandingPage />
+						</>
+					}
+				></Route>
+				<Route
+					path='/landingpagecashier'
+					element={
+						<>
+							<Navbar />
+							<LandingPageCashier />
+						</>
+					}
+				></Route>
 			</Routes>
 		</>
 	);

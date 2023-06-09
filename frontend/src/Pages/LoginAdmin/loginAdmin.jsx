@@ -18,7 +18,7 @@ export default function LoginAdmin() {
 			if (!_emailOrPhone.current.value || !_password.current.value)
 				throw { message: 'Data is not fully filled!' };
 
-			let result = await axios.post(`${urlAPI}/users/login`, {
+			let result = await axios.post(`${urlAPI}/auth/login`, {
 				emailOrPhone: _emailOrPhone.current.value,
 				password: _password.current.value,
 			});
@@ -42,7 +42,9 @@ export default function LoginAdmin() {
 				throw { message: 'Wrong email, phone number or password!' };
 			}
 
-			setTimeout(() => {}, 500);
+			setTimeout(() => {
+				navigate('/landingpage');
+			}, 500);
 		} catch (error) {
 			if (error.response) {
 				toast.error(error.response.data.message);
@@ -59,7 +61,9 @@ export default function LoginAdmin() {
 				<div className='w-[450px] bg-[#04428e] flex justify-center items-center py-[200px] rounded-lg'>
 					<div className='login-wrapper'>
 						<div className='login-text'>
-							<h1 className='font-bold text-[30px] text-white'>LOGIN AS ADMIN</h1>
+							<h1 className='font-bold text-[30px] text-white'>
+								LOGIN AS ADMIN
+							</h1>
 						</div>
 						<div className='input-user mt-2 w-full'>
 							<div className='input-username-password w-full'>

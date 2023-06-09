@@ -2,11 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 const { productController } = require('./../controllers');
-// const { multerUpload } = require('./../middleware/multer');
+const { multerUpload } = require('./../middleware/multer');
 
 // IMPORT ROUTER
 router.get('/', productController.productsList);
-// router.post('/', multerUpload.single('image'), productController.create);
 router.get('/getcategory', productController.getCategory)
 router.post('/', multerUpload.single('image'), productController.create);
 router.put(

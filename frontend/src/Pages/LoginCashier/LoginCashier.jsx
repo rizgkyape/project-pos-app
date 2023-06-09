@@ -18,7 +18,7 @@ export default function LoginCashier() {
 				throw { message: 'Data is not fully filled!' };
 			}
 
-			let result = await axios.post(`${urlAPI}/users/login/cashier`, {
+			let result = await axios.post(`${urlAPI}/auth/login/cashier`, {
 				emailOrPhone: _emailOrPhone.current.value,
 				password: _password.current.value,
 			});
@@ -39,7 +39,9 @@ export default function LoginCashier() {
 				throw { message: 'Wrong email, phone number or password!' };
 			}
 
-			setTimeout(() => {}, 500);
+			setTimeout(() => {
+				navigate('/landingpagecashier');
+			}, 500);
 		} catch (error) {
 			if (error.response) {
 				toast.error(error.response.data.message);
@@ -56,7 +58,9 @@ export default function LoginCashier() {
 				<div className='w-[450px] bg-[#04428e] flex justify-center items-center py-[200px] rounded-lg'>
 					<div className='login-wrapper'>
 						<div className='login-text'>
-							<h1 className='font-bold text-[30px] text-white'>LOGIN AS CASHIER</h1>
+							<h1 className='font-bold text-[30px] text-white'>
+								LOGIN AS CASHIER
+							</h1>
 						</div>
 						<div className='input-user mt-2 w-full'>
 							<div className='input-username-password w-full'>

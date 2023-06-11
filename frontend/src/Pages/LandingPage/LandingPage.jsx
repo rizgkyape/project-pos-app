@@ -122,9 +122,9 @@ export default function LandingPage() {
 				)
 			);
 
-			setTimeout(() => {
-				window.location.reload();
-			}, 100);
+			// setTimeout(() => {
+			// 	window.location.reload();
+			// }, 100);
 
 			_addCategory.current.value = '';
 			_addProductName.current.value = '';

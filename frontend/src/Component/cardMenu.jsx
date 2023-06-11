@@ -10,7 +10,6 @@ export default function CardMenu() {
 	const dispatch = useDispatch();
 
 	const products = useSelector((state) => state.productsList.products);
-	console.log(products);
 
 	useEffect(() => {
 		dispatch(getProductsListAsync());

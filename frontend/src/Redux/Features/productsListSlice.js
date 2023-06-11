@@ -115,11 +115,39 @@ export const deleteProduct = (id) => async (dispatch) => {
 		const result = await axios.delete(`${urlAPI}/products/delete/${id}`);
 
 		if (result) toast.success('Delete product success!');
+		dispatch(getProductsListAsync());
 	} catch (error) {
 		toast.error(error.message);
 	}
+};
 
-	dispatch(getProductsListAsync());
+export const addProductCategory = (category) => async (dispatch) => {
+	try {
+		const result = await axios.post(`${urlAPI}/products/categories`, {
+			category: category,
+		});
+
+		if (result) toast.success('Add product category success!');
+		dispatch(getCategoryProducts());
+	} catch (error) {
+		toast.error(error.message);
+	}
+};
+
+export const editProductCategory = (id, category) => async (dispatch) => {
+	try {
+		const result = await axios.put(
+			`${urlAPI}/products/categories/modify/${id}`,
+			{
+				category: category,
+			}
+		);
+
+		if (result) toast.success('Edit product success!');
+		dispatch(getCategoryProducts());
+	} catch (error) {
+		toast.error(error.message);
+	}
 };
 
 export const { setProducts, setCategory } = productsListSlice.actions;

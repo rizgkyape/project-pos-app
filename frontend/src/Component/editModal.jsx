@@ -72,7 +72,9 @@ export default function EditModal(props) {
 		<>
 			<div className='flex justify-center'>
 				<Button
-					onClick={() => setShowEditModal(!showEditModal)}
+					onClick={() => {
+						setShowEditModal(!showEditModal);
+					}}
 					class='bg-white hover:bg-blue-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow h-[30px] w-[50px] flex justify-center items-center'
 				>
 					<div>Edit</div>
@@ -81,7 +83,9 @@ export default function EditModal(props) {
 			<Modal
 				show={showEditModal}
 				dismissible
-				onClose={() => setShowEditModal(!showEditModal)}
+				onClose={() => {
+					setShowEditModal(!showEditModal);
+				}}
 			>
 				<Modal.Header>EDIT PRODUCT</Modal.Header>
 				<Modal.Body>
@@ -107,7 +111,7 @@ export default function EditModal(props) {
 														{value.category}
 													</Dropdown.Item>
 												</>
-											);
+											)
 										})}
 									</Dropdown>
 								</div>
@@ -115,17 +119,18 @@ export default function EditModal(props) {
 							<div className='mb-2 flex justify-center items-center'>
 								<div className='mr-3 w-[150px]'>Product name</div>
 								<input
-									defaultValue={props.name}
+									placeholder={props.name}
 									type='text'
 									id='editProductName'
 									ref={_editProductName}
 									className='rounded-lg w-full'
 								/>
+								{console.log(props.name)}
 							</div>
 							<div className='mb-2 flex justify-center items-center'>
 								<div className='mr-3 w-[150px]'>Price</div>
 								<input
-									defaultValue={props.price}
+									placeholder={props.price}
 									type='text'
 									id='editPrice'
 									ref={_editPrice}
@@ -135,7 +140,7 @@ export default function EditModal(props) {
 							<div className='mb-2 flex justify-center items-center'>
 								<div className='mr-3 w-[150px]'>Stock</div>
 								<input
-									defaultValue={props.stock}
+									placeholder={props.stock}
 									type='text'
 									id='editStock'
 									ref={_editStock}
@@ -154,7 +159,7 @@ export default function EditModal(props) {
 							<div className='mb-2 flex justify-center items-center'>
 								<div className='mr-3 w-[150px]'>Image link</div>
 								<input
-									defaultValue={props.imageLink}
+									placeholder={props.imageLink}
 									type='text'
 									id='imageLink'
 									ref={_editImageLink}

@@ -6,6 +6,7 @@ import LoginAdmin from './Pages/LoginAdmin/loginAdmin';
 import LoginCashier from './Pages/LoginCashier/LoginCashier';
 import LandingPage from './Pages/LandingPage/LandingPage';
 import LandingPageCashier from './Pages/LpCashier/LpCashier';
+import EditProductCategory from './Pages/EditProductCategory/EditProductCategory';
 
 function App() {
 	return (
@@ -28,6 +29,15 @@ function App() {
 						<>
 							<Navbar />
 							<LandingPageCashier />
+						</>
+					}
+				></Route>
+				<Route
+					path='/products/edit/categories'
+					element={
+						<>
+							<Navbar />
+							<EditProductCategory />
 						</>
 					}
 				></Route>

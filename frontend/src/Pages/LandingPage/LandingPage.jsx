@@ -70,7 +70,7 @@ export default function LandingPage() {
                   type="text"
                   ref={_searchName}
                   placeholder="Search"
-                  className="w-[100%] pl-2 border-none focus:ring-gray-100 focus:border-gray-100"
+                  class="w-[100%] pl-2 border-none focus:ring-gray-100 focus:border-gray-100"
                 />
                 <div className="flex">
                 <Dropdown
@@ -122,6 +122,7 @@ export default function LandingPage() {
                               setCategory(value.id);
                               setNameCategory(value.category);
                             }}
+                            key={index}
                           >
                             {value.category}
                           </Dropdown.Item>

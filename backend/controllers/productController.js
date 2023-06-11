@@ -11,7 +11,6 @@ module.exports = {
       //pagination
       let page = Number(req.query.page) || 0
       let limit = Number(req.query.limit) || 20
-      // let orderBy = req.query.orderBy || "id"
 
       let { name, category, sortBy, sort } = req.query;
       category = Number(category)

@@ -18,7 +18,7 @@ export default function LoginAdmin() {
 			if (!_emailOrPhone.current.value || !_password.current.value)
 				throw { message: 'Data is not fully filled!' };
 
-			let result = await axios.post(`${urlAPI}/users/login`, {
+			let result = await axios.post(`${urlAPI}/auth/login`, {
 				emailOrPhone: _emailOrPhone.current.value,
 				password: _password.current.value,
 			});

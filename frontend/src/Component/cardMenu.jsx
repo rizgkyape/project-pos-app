@@ -24,8 +24,8 @@ export default function CardMenu() {
               <div className="w-[100px] h-[100px]">
                 <img key={index} src={value.imageLink} alt="gambar" width={'100%'}></img>
               </div>
-              <div className="flex items-center text-[18px]">{value.name}</div>
-              <div className="flex items-center text-[18px] border-x border-black p-5">
+              <div key={index} className="flex items-center text-[18px]">{value.name}</div>
+              <div key={index} className="flex items-center text-[18px] border-x border-black p-5">
                 Rp. {value.price.toLocaleString("id-ID")}
               </div>
             </div>

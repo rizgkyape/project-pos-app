@@ -38,7 +38,7 @@ export default function Navbar() {
 	return (
 		<>
 			<Toaster />
-			<div className='shadow-md w-full top-0 left-0'>
+			<div className='shadow-md w-full top-0 left-0 z-[9999]'>
 				<div className='md:flex items-center justify-between bg-[#04428e] py-4 md:px-10 px-7 '>
 					<div className='font-bold text-2xl cursor-pointer flex items-center text-white'>
 						<span className='text-3xl mr-2'>
@@ -82,7 +82,7 @@ export default function Navbar() {
 										ADMIN
 									</h1>
 
-									<div className='ml-[-10px]'>
+									<div className='ml-[-10px] z-[100]'>
 										<div
 											className={`md:absolute md:top-[64px] ${
 												admin ? '' : 'hidden'
@@ -92,7 +92,7 @@ export default function Navbar() {
 											<div className='py-2'>
 												<div className='md:w-4 md:h-4 absolute bg-[#04428e] left-7 md:rotate-45'></div>
 											</div>
-											<div className='bg-[#04428e] md:p-4 px-3'>
+											<div className='bg-[#04428e] md:p-4 px-3 z-[1000]'>
 												<li className='text-sm my-2.5'>
 													<Link className='hover:text-[#E57C23] duration-500'>
 														DASHBOARD

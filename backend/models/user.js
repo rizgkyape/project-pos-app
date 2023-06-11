@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
 					msg: 'Email has already taken!',
 				},
 				validate: {
-					isEmail: true,
+					isEmail: true
 				},
 			},
 			phoneNumber: {
@@ -44,6 +44,7 @@ module.exports = (sequelize, DataTypes) => {
 				},
 			},
 			isAdmin: DataTypes.BOOLEAN,
+			isCashier: DataTypes.BOOLEAN
 		},
 		{
 			sequelize,

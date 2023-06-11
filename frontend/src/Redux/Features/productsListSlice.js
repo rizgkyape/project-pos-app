@@ -43,7 +43,7 @@ export const getProductsListAsync =
 
 export const getCategoryProducts = () => async (dispatch) => {
 	try {
-		const result = await axios.get(`${urlAPI}/products/getcategory`);
+		const result = await axios.get(`${urlAPI}/products/categories`);
 		dispatch(setCategory(result.data));
 	} catch (error) {
 		console.log(error.message);

@@ -9,8 +9,9 @@ module.exports = {
 			let where = undefined;
       let order = undefined;
       //pagination
-      let page = Number(req.query.page) || 0
-      let limit = Number(req.query.limit) || 20
+      let page = Number(req.query.page) || 1
+      let limit = Number(req.query.limit) || 5
+      // let orderBy = req.query.orderBy || "id"
 
       let { name, category, sortBy, sort } = req.query;
       category = Number(category)
@@ -50,7 +51,7 @@ module.exports = {
 				order: order,
         include: [{ model: db.ProductCategory }],
         limit: limit,
-        offset: page * limit,
+        offset: (page - 1) * limit,
 			});
 
 			return res.status(200).send({

@@ -1,9 +1,9 @@
 import CardMenu from "../../Component/cardMenu";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import { GrList } from "react-icons/gr";
 import { AiOutlineDown } from "react-icons/ai";
-import { Dropdown } from "flowbite-react"; 
+import { Dropdown, Pagination } from "flowbite-react"; 
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getCategoryProducts, getProductsListAsync } from "../../Redux/Features/productsListSlice";
@@ -11,17 +11,20 @@ import { getCategoryProducts, getProductsListAsync } from "../../Redux/Features/
 export default function LandingPageCashier() {
   const _searchProducts = useRef();
   const dispatch = useDispatch()
+  const [pages, setPage] = useState(0)
+  
 
-  // const productsReducer = useSelector((state) => state.productsList.products)
+  const productsReducer = useSelector((state) => state.productsList.products.pagination)
+  // console.log(productsReducer)
   const categoryList = useSelector((state) => state.productsList.category)
 
   // const categoryList = ["satu", "dua", "tiga"];
 
   useEffect(() => {
-    // dispatch(getProductsListAsync())
     dispatch(getCategoryProducts())
     dispatch(getProductsListAsync());
-  }, [])
+    dispatch(getProductsListAsync(pages))
+  }, [pages])
   
 
   return (
@@ -64,14 +67,25 @@ export default function LandingPageCashier() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-3 gap-4 ">
               <CardMenu />
             </div>
+            <div className='flex justify-center items-center mt-6'>
+							<Pagination
+								currentPage={pages || 1}
+								onPageChange={(page) => {
+									setPage(page);
+									console.log(page);
+								}}
+								showIcons
+								totalPages={productsReducer?.pageCount || 0}
+							/>
+						</div>
           </div>
           {/* BATAS BAGIAN KIRI LANDING PAGE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
 
           {/* BAGIAN KANAN LANDING PAGE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
-          <div className="flex-1">
+          <div className="flex-1 mt-2">
             <div className="flex">
               <div className="bg-blue-300">
                 <GrList className="text-[40px] " />

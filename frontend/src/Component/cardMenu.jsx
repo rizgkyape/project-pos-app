@@ -19,7 +19,7 @@ export default function CardMenu() {
 		<>
 			{products.data?.map((value, index) => {
 				return (
-					<div className='w-[500px] mb-2 md:w-fit'>
+					<div className='h-[400px] mb-2 md:w-fit'>
 						<Card
 						// key={index}
 						// imgAlt='Product-image'
@@ -50,7 +50,7 @@ export default function CardMenu() {
 							<p className='font-normal text-gray-700 dark:text-gray-400'>
 								<p>Rp. {value.price.toLocaleString('id-ID')}</p>
 							</p>
-							<div className='flex items-center gap-2 mr-2'>
+							{/* <div className='flex items-center gap-2 mr-2'>
 								<EditModal
 									id={value.id}
 									productCategory={value.ProductCategory?.category}
@@ -60,7 +60,7 @@ export default function CardMenu() {
 									imageLink={value.imageLink}
 								/>
 								<DeleteModal id={value.id} />
-							</div>
+							</div> */}
 						</Card>
 						{/* <div className='flex justify-between border border-black rounded-[5px]'>
 							<div className='flex justify-between w-[400px]'>

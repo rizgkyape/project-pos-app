@@ -8,10 +8,11 @@ app.use(express.static('public'));
 const PORT = 5678;
 
 // IMPORT ROUTERS
-const { userRouter, productRouter } = require('./routers');
+const { userRouter, productRouter, transactionRouter } = require('./routers');
 
 app.use('/auth', userRouter);
 app.use('/products', productRouter);
+app.use('/transactions', transactionRouter);
 
 app.listen(PORT, () => {
 	console.log(`server started on port ${PORT}`);

@@ -12,19 +12,25 @@ module.exports = {
 		 *   isBetaMember: false
 		 * }], {});
 		 */
-		await queryInterface.bulkInsert('productcategories', [
+		await queryInterface.bulkInsert('orders', [
 			{
-				category: 'Foods',
+				userId: 2,
+				status: true,
+				paymentTypeId: 1,
 				createdAt: new Date(),
 				updatedAt: new Date(),
 			},
 			{
-				category: 'Drinks',
+				userId: 2,
+				status: true,
+				paymentTypeId: 1,
 				createdAt: new Date(),
 				updatedAt: new Date(),
 			},
 			{
-				category: 'Additional',
+				userId: 2,
+				status: true,
+				paymentTypeId: 1,
 				createdAt: new Date(),
 				updatedAt: new Date(),
 			},
@@ -38,6 +44,6 @@ module.exports = {
 		 * Example:
 		 * await queryInterface.bulkDelete('People', null, {});
 		 */
-		await queryInterface.bulkDelete('productcategories', null, {});
+    await queryInterface.bulkDelete('orders', null, {});
 	},
 };

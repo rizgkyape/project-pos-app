@@ -28,7 +28,7 @@ export default function ComListCashier() {
           </Table.Head>
           <Table.Body class="divide-y">
             {listCashier.data?.map((value, index) => {
-              console.log(value);
+              // console.log(value);
               return (
                 <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                   <Table.Cell

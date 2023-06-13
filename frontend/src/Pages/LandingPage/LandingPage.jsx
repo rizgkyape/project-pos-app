@@ -51,7 +51,6 @@ export default function LandingPage() {
 	const productsReducer = useSelector(
 		(state) => state.productsList.products.pagination
 	);
-	console.log(productsReducer);
 
 	const categoryList = useSelector((state) => state.productsList.category);
 
@@ -337,7 +336,6 @@ export default function LandingPage() {
 								currentPage={pages || 1}
 								onPageChange={(page) => {
 									setPage(page);
-									console.log(page);
 								}}
 								showIcons
 								totalPages={productsReducer?.pageCount || 0}

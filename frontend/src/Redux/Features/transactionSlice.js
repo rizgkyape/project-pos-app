@@ -7,7 +7,10 @@ const initialState = {
   orderDetail: [],
   totalPrice: 0,
   statusOrder: null,
+  sales: {},
 };
+
+let userLogin = JSON.parse(localStorage?.getItem('userLogin'));
 
 export const transactionSlice = createSlice({
   name: "transaction",
@@ -18,6 +21,9 @@ export const transactionSlice = createSlice({
       initialState.totalPrice = action.payload.totalPrice;
       initialState.statusOrder = action.payload.status;
     },
+    setSalesAggregate: (initialState, action) => {
+			initialState.sales = action.payload;
+		},
   },
 });
 
@@ -136,5 +142,23 @@ export const createOrder = (userId) => async (dispatch) => {
   }
 };
 
-export const { setOrderDetail } = transactionSlice.actions;
+export const getSalesAggregate = (startDate, endDate) => async (dispatch) => {
+	try {
+		const result = await axios.get(`${urlAPI}/transactions/report/aggregate`, {
+			params: {
+				startDate: startDate,
+				endDate: endDate,
+			},
+			headers: {
+				authorization: `Bearer ${userLogin.token}`,
+			},
+		});
+
+		dispatch(setSalesAggregate(result.data));
+	} catch (error) {
+		console.log(error.message);
+	}
+};
+
+export const { setOrderDetail, setSalesAggregate } = transactionSlice.actions;
 export default transactionSlice.reducer;

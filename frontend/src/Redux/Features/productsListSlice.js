@@ -4,6 +4,9 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import urlAPI from '../../Supports/Constant/urlAPI';
 
+let userLogin = JSON.parse(localStorage?.getItem('userLogin'));
+console.log(userLogin);
+
 const initialState = {
 	products: {},
 	category: {},
@@ -25,7 +28,6 @@ export const productsListSlice = createSlice({
 export const getProductsListAsync =
 	(page, category, name, sortBy, sort) => async (dispatch) => {
 		try {
-			// console.log('getProductsListAsync');
 			const result = await axios.get(`http://localhost:5678/products`, {
 				params: {
 					name: name,
@@ -67,6 +69,7 @@ export const addProduct =
 				},
 				{
 					headers: {
+						authorization: `Bearer ${userLogin.token}`,
 						'content-type': 'multipart/form-data',
 					},
 				}
@@ -99,6 +102,7 @@ export const editProduct =
 				},
 				{
 					headers: {
+						authorization: `Bearer ${userLogin.token}`,
 						'content-type': 'multipart/form-data',
 					},
 				}
@@ -112,7 +116,11 @@ export const editProduct =
 
 export const deleteProduct = (id) => async (dispatch) => {
 	try {
-		const result = await axios.delete(`${urlAPI}/products/delete/${id}`);
+		const result = await axios.delete(`${urlAPI}/products/delete/${id}`, {
+			headers: {
+				authorization: `Bearer ${userLogin.token}`,
+			},
+		});
 
 		if (result) toast.success('Delete product success!');
 		dispatch(getProductsListAsync());
@@ -123,9 +131,17 @@ export const deleteProduct = (id) => async (dispatch) => {
 
 export const addProductCategory = (category) => async (dispatch) => {
 	try {
-		const result = await axios.post(`${urlAPI}/products/categories`, {
-			category: category,
-		});
+		const result = await axios.post(
+			`${urlAPI}/products/categories`,
+			{
+				category: category,
+			},
+			{
+				headers: {
+					authorization: `Bearer ${userLogin.token}`,
+				},
+			}
+		);
 
 		if (result) toast.success('Add product category success!');
 		dispatch(getCategoryProducts());
@@ -140,6 +156,11 @@ export const editProductCategory = (id, category) => async (dispatch) => {
 			`${urlAPI}/products/categories/modify/${id}`,
 			{
 				category: category,
+			},
+			{
+				headers: {
+					authorization: `Bearer ${userLogin.token}`,
+				},
 			}
 		);
 

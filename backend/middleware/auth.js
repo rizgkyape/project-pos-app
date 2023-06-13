@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = {
-	verify: (req, res, next) => {
+	verifyToken: (req, res, next) => {
 		let token = req.headers.authorization;
+
 		if (!token)
 			return res.status(401).send('Access denied / unauthorized request');
 
@@ -25,6 +26,6 @@ module.exports = {
 		if (req.user.isAdmin) {
 			return next();
 		}
-    return res.status(401).send('User unverified!')
+		return res.status(401).send('User unverified!');
 	},
 };

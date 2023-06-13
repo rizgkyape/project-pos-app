@@ -53,26 +53,21 @@ export default function Navbar() {
 						{open ? <AiOutlineClose /> : <GiHamburgerMenu />}
 					</div>
 					<ul
-						className={`md:flex md:items-center md:pb-0 pb-12 bg-[#04428e] absolute md:static md:z-auto left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-400 ease-in text-white ${
+						className={`md:flex md:items-center md:pb-0 pb-12 bg-[#04428e] absolute md:static md:z-auto left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-400 ease-in text-white z-50 ${
 							open
-								? 'top-[60px] opacity-100 h-screen'
-								: 'top-[-500px] md:opacity-100 opacity-0'
+								? 'top-[60px] opacity-100 h-screen z-50'
+								: 'top-[-500px] md:opacity-100 opacity-0 z-50'
 						}`}
 					>
 						<li className='md:ml-8 text-xl md:my-0 my-10'>
-							<Link to='#' className='hover:text-[#E57C23] duration-500'>
+							<Link
+								to='/landingpage/cashier'
+								className='hover:text-[#E57C23] duration-500'
+							>
 								POINT OF SALES
 							</Link>
 						</li>
 						<li className='md:ml-8 text-xl md:my-0 my-10'>
-							<Link to='#' className='hover:text-[#E57C23] duration-500'>
-								ACTIVITY
-							</Link>
-						</li>
-						<li className='md:ml-8 text-xl md:my-0 my-10'>
-							{/* <Link to='#' className='hover:text-[#E57C23] duration-500'>
-								ADMIN
-							</Link> */}
 							<div>
 								<div className='cursor-pointer group'>
 									<h1
@@ -82,9 +77,9 @@ export default function Navbar() {
 										ADMIN
 									</h1>
 
-									<div className='ml-[-10px] z-[100]'>
+									<div className='ml-[-10px] z-[9999]'>
 										<div
-											className={`md:absolute md:top-[64px] ${
+											className={`md:absolute md:top-[64px] z-[9999] ${
 												admin ? '' : 'hidden'
 											}`}
 											onMouseLeave={() => setAdmin(!admin)}
@@ -92,19 +87,28 @@ export default function Navbar() {
 											<div className='py-2'>
 												<div className='md:w-4 md:h-4 absolute bg-[#04428e] left-7 md:rotate-45'></div>
 											</div>
-											<div className='bg-[#04428e] md:p-4 px-3 z-[1000]'>
+											<div className='bg-[#04428e] md:p-4 px-3 z-[9999]'>
 												<li className='text-sm my-2.5'>
-													<Link className='hover:text-[#E57C23] duration-500'>
+													<Link
+														to='/admin/dashboard'
+														className='hover:text-[#E57C23] duration-500'
+													>
 														DASHBOARD
 													</Link>
 												</li>
 												<li className='text-sm my-2.5'>
-													<Link className='hover:text-[#E57C23] duration-500'>
+													<Link
+														to='/landingpage'
+														className='hover:text-[#E57C23] duration-500'
+													>
 														INVENTORY
 													</Link>
 												</li>
 												<li className='text-sm my-2.5'>
-													<Link className='hover:text-[#E57C23] duration-500'>
+													<Link
+														to='/landingpage/cashierlist'
+														className='hover:text-[#E57C23] duration-500'
+													>
 														REGISTER
 													</Link>
 												</li>
@@ -119,7 +123,7 @@ export default function Navbar() {
 								onClick={() => setShowLogoutModal(!showLogoutModal)}
 								class='hover:text-[#E57C23] duration-500'
 							>
-								<p className='text-xl'>LOGOUT</p>
+								<p className='text-xl ml-[-18px]'>LOGOUT</p>
 							</Button>
 							<Modal
 								show={showLogoutModal}

@@ -4,12 +4,15 @@ const Order = db.Order;
 const PaymentType = db.PaymentType;
 const Product = db.Product;
 const { Op } = require('sequelize');
+const sequelize = require('sequelize');
 
 module.exports = {
-	getAllTransaction: async (req, res) => {
+	salesAggregate: async (req, res) => {
 		try {
 			let { startDate, endDate } = req.query;
-			let where = undefined;
+			let where = {
+				createdAt: { [Op.between]: [new Date('2023-06-01'), new Date('2023-08-30')] },
+			};
 
 			if (startDate && endDate) {
 				where = {
@@ -18,27 +21,12 @@ module.exports = {
 			}
 
 			const result = await OrderDetail.findAll({
-				include: [{ model: db.Order }, { model: db.Product }],
+				attributes: [
+					'createdAt',
+					[sequelize.fn('sum', sequelize.col('total')), 'totalSales'],
+				],
 				where: where,
-			});
-
-			return res.status(200).send({
-				success: true,
-				message: 'Fetch data success!',
-				data: result,
-			});
-		} catch (error) {
-			res.status(500).send({
-				success: false,
-				message: error.message,
-				data: null,
-			});
-		}
-	},
-	salesAggregate: async (req, res) => {
-		try {
-			const result = await OrderDetail.sum('price', {
-				include: [{ model: db.Order }, { model: db.Product }],
+				group: ['createdAt'],
 			});
 
 			return res.status(200).send({

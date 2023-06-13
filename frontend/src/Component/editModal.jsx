@@ -17,7 +17,6 @@ export default function EditModal(props) {
 	const categoryLists = useSelector((state) => state.productsList.category);
 
 	//ref
-
 	const _editProductName = useRef();
 	const _editPrice = useRef();
 	const _editStock = useRef();
@@ -51,10 +50,6 @@ export default function EditModal(props) {
 					_editImage.current.files[0]
 				)
 			);
-
-			// setTimeout(() => {
-			// 	window.location.reload();
-			// }, 100);
 
 			_editProductName.current.value = '';
 			_editPrice.current.value = '';
@@ -111,7 +106,7 @@ export default function EditModal(props) {
 														{value.category}
 													</Dropdown.Item>
 												</>
-											)
+											);
 										})}
 									</Dropdown>
 								</div>
@@ -125,7 +120,6 @@ export default function EditModal(props) {
 									ref={_editProductName}
 									className='rounded-lg w-full'
 								/>
-								{console.log(props.name)}
 							</div>
 							<div className='mb-2 flex justify-center items-center'>
 								<div className='mr-3 w-[150px]'>Price</div>

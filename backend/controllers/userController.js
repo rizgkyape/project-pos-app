@@ -38,7 +38,7 @@ module.exports = {
           isAdmin: result.isAdmin,
         };
 
-        const token = jwt.sign(payload, "coding-its-easy");
+        const token = jwt.sign(payload, "coding-its-easy", {expiresIn: '10h'});
 
         return res.status(200).send({
           success: true,

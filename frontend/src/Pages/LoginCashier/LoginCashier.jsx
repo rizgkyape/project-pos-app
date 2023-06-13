@@ -40,7 +40,7 @@ export default function LoginCashier() {
 			}
 
 			setTimeout(() => {
-				navigate('/landingpagecashier');
+				navigate('/landingpage/cashier');
 			}, 500);
 		} catch (error) {
 			if (error.response) {

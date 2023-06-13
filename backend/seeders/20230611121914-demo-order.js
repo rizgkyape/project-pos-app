@@ -15,25 +15,11 @@ module.exports = {
 		await queryInterface.bulkInsert('orders', [
 			{
 				userId: 2,
-				status: true,
+				status: false,
 				paymentTypeId: 1,
 				createdAt: new Date(),
 				updatedAt: new Date(),
-			},
-			{
-				userId: 2,
-				status: true,
-				paymentTypeId: 1,
-				createdAt: new Date(),
-				updatedAt: new Date(),
-			},
-			{
-				userId: 2,
-				status: true,
-				paymentTypeId: 1,
-				createdAt: new Date(),
-				updatedAt: new Date(),
-			},
+			}
 		]);
 	},
 

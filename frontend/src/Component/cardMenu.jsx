@@ -5,6 +5,7 @@ import urlAPI from '../Supports/Constant/urlAPI';
 import { Card } from 'flowbite-react';
 import EditModal from './editModal';
 import DeleteModal from './deleteModal';
+import ComAddProduct from './ComAddProduct';
 
 export default function CardMenu() {
 	const dispatch = useDispatch();
@@ -19,7 +20,7 @@ export default function CardMenu() {
 		<>
 			{products.data?.map((value, index) => {
 				return (
-					<div className='w-[500px] mb-2 md:w-fit'>
+					<div className='h-[400px] mb-2 md:w-fit'>
 						<Card
 						// key={index}
 						// imgAlt='Product-image'
@@ -37,8 +38,8 @@ export default function CardMenu() {
 									key={index}
 									src={
 										value.imageLink
-											? value.imageLink
-											: `${urlAPI}/image/${value.image}`
+										? value.imageLink
+										: `${urlAPI}/image/${value.image}`
 									}
 									alt='gambar'
 									class='object-cover md:h-52 md:w-52 rounded-lg'
@@ -64,7 +65,7 @@ export default function CardMenu() {
 						</Card>
 						{/* <div className='flex justify-between border border-black rounded-[5px]'>
 							<div className='flex justify-between w-[400px]'>
-								<div>
+							<div>
 									<img
 										key={index}
 										src={

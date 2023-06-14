@@ -1,13 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { getCashierList } from '../Redux/Features/userSlice';
-import { Button, Table } from 'flowbite-react';
-import { changeStatusCashier } from '../Redux/Features/userSlice';
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import { getCashierList } from "../Redux/Features/userSlice";
+import { Button, Table } from "flowbite-react";
+import { changeStatusCashier } from "../Redux/Features/userSlice";
 
 export default function ComListCashier() {
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-	const listCashier = useSelector((state) => state.user.cashier);
+  const listCashier = useSelector((state) => state.user.cashier);
+  console.log(listCashier)
 
   useEffect(() => {
     dispatch(getCashierList());

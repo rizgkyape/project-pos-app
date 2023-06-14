@@ -14,7 +14,7 @@ export default function DashboardAdmin() {
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	const [dates, setDates] = useState([]);
-	
+
 	let userLogin = JSON.parse(localStorage?.getItem('userLogin'));
 
 	useEffect(() => {

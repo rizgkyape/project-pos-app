@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import urlAPI from '../../Supports/Constant/urlAPI';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { Navigate } from 'react-router-dom';
 
 export default function LoginAdmin() {
 	const _emailOrPhone = useRef();
@@ -12,6 +13,7 @@ export default function LoginAdmin() {
 	const navigate = useNavigate();
 
 	const [showPassword, setShowPassword] = useState(false);
+	const userlogin = JSON.parse(localStorage?.getItem('userLogin'));
 
 	const onLogin = async () => {
 		try {
@@ -53,6 +55,12 @@ export default function LoginAdmin() {
 			}
 		}
 	};
+
+	if (userlogin?.isAdmin === false) {
+		return <Navigate to='/landingpage/cashier' />;
+	} else if (userlogin?.isAdmin === true) {
+		return <Navigate to='/landingpage' />;
+	}
 
 	return (
 		<>

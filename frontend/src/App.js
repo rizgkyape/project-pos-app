@@ -1,7 +1,8 @@
 // import logo from './logo.svg';
 import './App.css';
-import React from "react";
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import Navbar from './Component/navbar';
 import LoginAdmin from './Pages/LoginAdmin/loginAdmin';
 import LoginCashier from './Pages/LoginCashier/LoginCashier';
@@ -11,18 +12,60 @@ import ListCashier from './Pages/ListCashier/ListCashier';
 import EditProductCategory from './Pages/EditProductCategory/EditProductCategory';
 import DashboardAdmin from './Pages/DashboardAdmin/DashboardAdmin';
 
+
+// const userlogin = JSON.parse(localStorage?.getItem('userLogin'))
+
+const AdminPrivateRoute = ({ children }) => {
+	const userlogin = JSON.parse(localStorage?.getItem('userLogin'))
+	
+	if (userlogin?.isAdmin === true) {
+		return children;
+	} else if (userlogin?.isAdmin === false) {
+		return <Navigate to='/landingpage/cashier' />;
+	}
+};
+
+const CashierPrivateRoute = ({ children }) => {
+	const userlogin = JSON.parse(localStorage?.getItem('userLogin'))
+
+	if (userlogin?.isAdmin === false) {
+		return children;
+	} else if (userlogin?.isAdmin === true) {
+		return <Navigate to='/landingpage' />;
+	}
+};
+
+
 function App() {
 	return (
 		<>
 			<Routes>
-				<Route path='/' element={<LoginAdmin />}></Route>
-				<Route path='/login/cashier' element={<LoginCashier />}></Route>
+				<Route
+					path='/'
+					element={
+						<>
+							
+							<LoginAdmin />
+							
+						</>
+					}
+				></Route>
+				<Route
+					path='/login/cashier'
+					element={
+						<>
+							<LoginCashier />
+						</>
+					}
+				></Route>
 				<Route
 					path='/landingpage'
 					element={
 						<>
-							<Navbar />
-							<LandingPage />
+							<AdminPrivateRoute>
+								<Navbar />
+								<LandingPage />
+							</AdminPrivateRoute>
 						</>
 					}
 				></Route>
@@ -30,8 +73,10 @@ function App() {
 					path='/landingpage/cashier'
 					element={
 						<>
-							<Navbar />
-							<LandingPageCashier />
+							<CashierPrivateRoute>
+								<Navbar />
+								<LandingPageCashier />
+							</CashierPrivateRoute>
 						</>
 					}
 				></Route>
@@ -39,8 +84,10 @@ function App() {
 					path='/landingpage/cashierlist'
 					element={
 						<>
-							<Navbar />
-							<ListCashier />
+							<AdminPrivateRoute>
+								<Navbar />
+								<ListCashier />
+							</AdminPrivateRoute>
 						</>
 					}
 				></Route>
@@ -48,8 +95,10 @@ function App() {
 					path='/products/edit/categories'
 					element={
 						<>
-							<Navbar />
-							<EditProductCategory />
+							<AdminPrivateRoute>
+								<Navbar />
+								<EditProductCategory />
+							</AdminPrivateRoute>
 						</>
 					}
 				></Route>
@@ -57,8 +106,10 @@ function App() {
 					path='/admin/dashboard'
 					element={
 						<>
-							<Navbar />
-							<DashboardAdmin />
+							<AdminPrivateRoute>
+								<Navbar />
+								<DashboardAdmin />
+							</AdminPrivateRoute>
 						</>
 					}
 				></Route>

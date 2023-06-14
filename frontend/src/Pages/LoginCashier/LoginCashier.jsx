@@ -4,6 +4,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import urlAPI from '../../Supports/Constant/urlAPI';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { Navigate } from 'react-router-dom';
 
 export default function LoginCashier() {
 	const _emailOrPhone = useRef();
@@ -11,6 +12,7 @@ export default function LoginCashier() {
 	const navigate = useNavigate();
 
 	const [showPassword, setShowPassword] = useState();
+	const userlogin = JSON.parse(localStorage?.getItem('userLogin'));
 
 	const onLogin = async () => {
 		try {
@@ -50,6 +52,12 @@ export default function LoginCashier() {
 			}
 		}
 	};
+
+	if (userlogin?.isAdmin === false) {
+		return <Navigate to='/landingpage/cashier' />;
+	} else if (userlogin?.isAdmin === true) {
+		return <Navigate to='/landingpage' />;
+	}
 
 	return (
 		<>
@@ -107,7 +115,7 @@ export default function LoginCashier() {
 									</button>
 								</div>
 								<div className='text-[12px] mt-3 underline text-white hover:text-[#E57C23]'>
-									<Link to='/login'>Login as Admin</Link>
+									<Link to='/'>Login as Admin</Link>
 								</div>
 							</div>
 						</div>

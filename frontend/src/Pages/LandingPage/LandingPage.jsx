@@ -139,7 +139,7 @@ export default function LandingPage() {
 	return (
 		<>
 			<Toaster />
-			<div className='bg-gray-200 mt-[-8px] h-full pb-16'>
+			<div className='bg-gray-200 mt-[-8px] h-full md:pb-4 lg:pb-16 pb-2'>
 				<div className='md:flex m-2 gap-3'>
 					{/* BAGIAN KIRI LANDING PAGE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
 					<div className='flex-1'>
@@ -327,11 +327,11 @@ export default function LandingPage() {
 							</>
 						</div>
 						<div className='flex justify-center'>
-							<div className='md:flex md:justify-center md:gap-4'>
+							<div className='lg:flex lg:justify-center lg:gap-4 md:grid md:grid-cols-4 md:gap-2'>
 								<CardMenu />
 							</div>
 						</div>
-						<div className='flex justify-center items-center mt-6'>
+						<div className='flex justify-center items-center mt-1'>
 							<Pagination
 								currentPage={pages || 1}
 								onPageChange={(page) => {

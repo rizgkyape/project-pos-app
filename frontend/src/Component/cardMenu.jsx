@@ -20,32 +20,21 @@ export default function CardMenu() {
 		<>
 			{products.data?.map((value, index) => {
 				return (
-					<div className='h-[400px] mb-2 md:w-fit'>
-						<Card
-						// key={index}
-						// imgAlt='Product-image'
-						// imgSrc={
-						// 	value.imageLink
-						// 		? value.imageLink
-						// 		: `${urlAPI}/image/${value.image}`
-						// }
-
-						// class='hover:bg-blue-100 bg-white rounded-lg'
-						// img='h-52'
-						>
+					<div className='md:h-[400px] mb-2 md:w-fit'>
+						<Card>
 							<div className='flex justify-center'>
 								<img
 									key={index}
 									src={
 										value.imageLink
-										? value.imageLink
-										: `${urlAPI}/image/${value.image}`
+											? value.imageLink
+											: `${urlAPI}/image/${value.image}`
 									}
 									alt='gambar'
 									class='object-cover md:h-52 md:w-52 rounded-lg'
 								></img>
 							</div>
-							<h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
+							<h5 className='text-xl font-bold tracking-tight text-gray-900 dark:text-white'>
 								<p>{value.name}</p>
 							</h5>
 							<p className='font-normal text-gray-700 dark:text-gray-400'>

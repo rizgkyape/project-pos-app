@@ -16,11 +16,37 @@ import {
   reduceProductOrder,
 } from "../../Redux/Features/transactionSlice";
 import CardMenuCashier from "../../Component/cardMenuCashier";
+import { useSearchParams } from 'react-router-dom';
+import { AiOutlineSearch } from 'react-icons/ai';
+
 
 export default function LandingPageCashier() {
-  const _searchProducts = useRef();
   const dispatch = useDispatch();
+  
+  //ref
+	const _searchName = useRef();
+	const _addCategory = useRef();
+	const _addProductName = useRef();
+	const _addPrice = useRef();
+	const _addStock = useRef();
+	const _addExpiredDate = useRef();
+	const _addImageLink = useRef();
+  const _addImage = useRef();
+  
+  //filter
   const [pages, setPage] = useState(0);
+	const [category, setCategory] = useState();
+	const [nameCategory, setNameCategory] = useState('');
+	const [sortBy, setSortBy] = useState('');
+	const [sort, setSort] = useState('');
+  const [showAddModal, setShowAddModal] = useState(false);
+  
+  //value sortby & sort
+	const filterSortBy = ['NAME', 'PRICE'];
+  const filterSort = ['ASC', 'DESC'];
+  
+  //search params
+	const [searchParams, setSearchParams] = useSearchParams();
 
   const productsReducer = useSelector(
     (state) => state.productsList.products.pagination
@@ -41,6 +67,29 @@ export default function LandingPageCashier() {
   console.log(userLogin.id);
 
   useEffect(() => {
+    let queryParams = {};
+
+		if (_searchName.current.value) {
+			queryParams['name'] = _searchName.current.value;
+		}
+
+		if (sortBy) {
+			queryParams['sortBy'] = sortBy;
+		}
+
+		if (sort) {
+			queryParams['sort'] = sort;
+		}
+
+		if (category) {
+			queryParams['category'] = nameCategory;
+		}
+
+		if (pages) {
+			queryParams['pages'] = pages;
+		}
+
+		setSearchParams(queryParams);
     dispatch(getCategoryProducts());
     dispatch(getProductsListAsync());
     dispatch(getProductsListAsync(pages));
@@ -53,40 +102,92 @@ export default function LandingPageCashier() {
         <div className="flex flex-col-reverse md:flex-row m-2 gap-3">
           {/* BAGIAN KIRI LANDING PAGE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
           <div className="flex-1">
-            <div className="search-wrapper">
-              <div className="flex m-2 bg-white pr-2">
-                <input
-                  type="text"
-                  ref={_searchProducts}
-                  placeholder="Search"
-                  className="w-[100%] pl-2 border-none focus:ring-gray-100 focus:border-gray-100"
-                />
-                <div>
-                  {/* <div className="flex items-center gap-1">
-                    Category <AiOutlineDown />
-                  </div> */}
-                </div>
-                <div>
-                  <Dropdown
-                    label="Category"
-                    dismissOnClick={false}
-                    class="bg-white"
-                  >
-                    {categoryList.data?.map((value, index) => {
-                      return (
-                        <>
-                          <Dropdown.Item
-                          // onClick={() => onFilterCategory(value.id)}
-                          >
-                            {value.category}
-                          </Dropdown.Item>
-                        </>
-                      );
-                    })}
-                  </Dropdown>
-                </div>
-              </div>
-            </div>
+          <div className='search-wrapper mt-4'>
+							<div className='flex m-2 bg-white pr-2'>
+								<input
+									type='text'
+									ref={_searchName}
+									placeholder='Search'
+									className='w-[100%] pl-2 border-none focus:ring-gray-100 focus:border-gray-100'
+								/>
+								<button
+									className='bg-white hover:bg-blue-100 text-gray-800 text-xl font-semibold py-2 px-4'
+									onClick={() =>
+										dispatch(
+											getProductsListAsync(
+												pages,
+												category,
+												_searchName.current.value,
+												sortBy,
+												sort
+											)
+										)
+									}
+								>
+									<AiOutlineSearch />
+								</button>
+								<div className='flex'>
+									<Dropdown
+										label={sortBy ? sortBy : 'SORT BY'}
+										dismissOnClick={true}
+										class='bg-white w-[110px] hover:bg-blue-100 h-full'
+									>
+										{filterSortBy.map((value, index) => {
+											return (
+												<>
+													<Dropdown.Item
+														onClick={() => {
+															setSortBy(value);
+														}}
+													>
+														{value}
+													</Dropdown.Item>
+												</>
+											);
+										})}
+									</Dropdown>
+									<Dropdown
+										label={sort ? sort : 'SORT'}
+										dismissOnClick={true}
+										class='bg-white hover:bg-blue-100 h-full'
+									>
+										{filterSort.map((value, index) => {
+											return (
+												<>
+													<Dropdown.Item
+														onClick={() => {
+															setSort(value);
+														}}
+													>
+														{value}
+													</Dropdown.Item>
+												</>
+											);
+										})}
+									</Dropdown>
+									<Dropdown
+										label={nameCategory ? nameCategory : 'CATEGORY'}
+										dismissOnClick={true}
+										class='bg-white hover:bg-blue-100 h-full'
+									>
+										{categoryList.data?.map((value, index) => {
+											return (
+												<>
+													<Dropdown.Item
+														onClick={() => {
+															setCategory(value.id);
+															setNameCategory(value.category);
+														}}
+													>
+														{value.category}
+													</Dropdown.Item>
+												</>
+											);
+										})}
+									</Dropdown>
+								</div>
+							</div>
+						</div>
             <div className="flex justify-center items-center mt-6">
               <Pagination
                 currentPage={pages || 1}

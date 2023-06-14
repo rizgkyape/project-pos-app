@@ -76,7 +76,6 @@ module.exports = {
         result = await User.findOne({
           where: {
             email: emailOrPhone,
-            password: password,
             isAdmin: false,
           },
         });
@@ -84,13 +83,15 @@ module.exports = {
         result = await User.findOne({
           where: {
             phoneNumber: emailOrPhone,
-            password: password,
             isAdmin: false,
           },
         });
       }
 
-      if (result) {
+      const isUserExist = await bcrypt.compare(password, result.password)
+
+
+      if (isUserExist) {
         let payload = {
           id: result.id,
           adminId: result.adminId,
@@ -294,10 +295,35 @@ module.exports = {
   },
   getCashierList: async (req, res) => {
     try {
+      let where = undefined;
+      let order = undefined;
+
+      //pagination
+      let page = Number(req.query.page) || 1;
+      let limit = Number(req.query.limit) || 100;
+
+      let { name, sortBy, sort } = req.query;
+
+      if (name) {
+        where = {
+          name: { [Op.like]: `%${name}%` },
+          isAdmin: false
+        };
+      }
+
+      if (sortBy && sort) {
+        order = [[`${sortBy}`, `${sort}`]];
+      }
+
+      let dataCount = await User.count({
+        where: where
+      });
+      let pageCount = Math.ceil(dataCount / limit);
+
       const result = await User.findAll({
-        where: {
-          isAdmin: false,
-        },
+        where: where,
+        limit: limit,
+        offset: (page - 1) * limit
       });
 
       if (result) {
@@ -305,6 +331,12 @@ module.exports = {
           success: true,
           message: "fetch success",
           data: result,
+          pagination: {
+            page: page,
+            pageCount: pageCount,
+            dataCount: dataCount,
+            limit: limit 
+          }
         });
       } else {
         return res.status(400).send({

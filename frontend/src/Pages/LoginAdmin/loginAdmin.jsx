@@ -46,7 +46,7 @@ export default function LoginAdmin() {
 
 			setTimeout(() => {
 				navigate('/landingpage');
-			}, 500);
+			}, 200);
 		} catch (error) {
 			if (error.response) {
 				toast.error(error.response.data.message);
@@ -60,6 +60,8 @@ export default function LoginAdmin() {
 		return <Navigate to='/landingpage/cashier' />;
 	} else if (userlogin?.isAdmin === true) {
 		return <Navigate to='/landingpage' />;
+	} else {
+		<Navigate to='/' />;
 	}
 
 	return (

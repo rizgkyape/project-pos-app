@@ -12,29 +12,35 @@ import ListCashier from './Pages/ListCashier/ListCashier';
 import EditProductCategory from './Pages/EditProductCategory/EditProductCategory';
 import DashboardAdmin from './Pages/DashboardAdmin/DashboardAdmin';
 
-
 // const userlogin = JSON.parse(localStorage?.getItem('userLogin'))
 
 const AdminPrivateRoute = ({ children }) => {
-	const userlogin = JSON.parse(localStorage?.getItem('userLogin'))
-	
-	if (userlogin?.isAdmin === true) {
+	const userlogin = JSON.parse(localStorage?.getItem('userLogin'));
+
+	if (userlogin && userlogin?.isAdmin === true) {
 		return children;
-	} else if (userlogin?.isAdmin === false) {
+	} else if (userlogin && userlogin?.isAdmin === false) {
 		return <Navigate to='/landingpage/cashier' />;
+	}
+
+	if (!userlogin) {
+		return <Navigate to='/' />;
 	}
 };
 
 const CashierPrivateRoute = ({ children }) => {
-	const userlogin = JSON.parse(localStorage?.getItem('userLogin'))
+	const userlogin = JSON.parse(localStorage?.getItem('userLogin'));
 
-	if (userlogin?.isAdmin === false) {
+	if (userlogin && userlogin?.isAdmin === false) {
 		return children;
-	} else if (userlogin?.isAdmin === true) {
+	} else if (userlogin && userlogin?.isAdmin === true) {
 		return <Navigate to='/landingpage' />;
 	}
-};
 
+	if (!userlogin) {
+		return <Navigate to='/login/cashier' />;
+	}
+};
 
 function App() {
 	return (
@@ -44,9 +50,7 @@ function App() {
 					path='/'
 					element={
 						<>
-							
 							<LoginAdmin />
-							
 						</>
 					}
 				></Route>

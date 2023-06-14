@@ -11,7 +11,7 @@ export default function LoginCashier() {
 	const _password = useRef();
 	const navigate = useNavigate();
 
-	const [showPassword, setShowPassword] = useState();
+	const [showPassword, setShowPassword] = useState(false);
 	const userlogin = JSON.parse(localStorage?.getItem('userLogin'));
 
 	const onLogin = async () => {
@@ -43,7 +43,7 @@ export default function LoginCashier() {
 
 			setTimeout(() => {
 				navigate('/landingpage/cashier');
-			}, 500);
+			}, 200);
 		} catch (error) {
 			if (error.response) {
 				toast.error(error.response.data.message);
@@ -57,6 +57,8 @@ export default function LoginCashier() {
 		return <Navigate to='/landingpage/cashier' />;
 	} else if (userlogin?.isAdmin === true) {
 		return <Navigate to='/landingpage' />;
+	} else { 
+		<Navigate to='/login/cashier' />;
 	}
 
 	return (
